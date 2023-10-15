@@ -3,12 +3,9 @@ import { createClient, groq } from "next-sanity";
 import clientconfig from "./config/client-config";
 import { Page } from "@/types/page";
 
-
-
 export async function getprojects(): Promise<Project[]> {
-
-    return createClient(clientconfig).fetch(
-        groq`*[_type == "project"]{
+  return createClient(clientconfig).fetch(
+    groq`*[_type == "project"]{
 
         _id,
         _createdAt,
@@ -20,15 +17,12 @@ export async function getprojects(): Promise<Project[]> {
 
 
     }`
-    );
-
-
+  );
 }
 
 export async function getProject(slug: string): Promise<Project> {
-
-    return createClient(clientconfig).fetch(
-        groq`*[_type == "project" && slug.current == $slug][0]{
+  return createClient(clientconfig).fetch(
+    groq`*[_type == "project" && slug.current == $slug][0]{
     
             _id,
             _createdAt,
@@ -41,36 +35,30 @@ export async function getProject(slug: string): Promise<Project> {
     
         }`,
 
-        { slug }
-
-    );
-
+    { slug }
+  );
 }
 
-
-
 export async function getPages(): Promise<Page[]> {
-    return createClient(clientconfig).fetch(
-        groq `*[_type == 'page']{
+  return createClient(clientconfig).fetch(
+    groq`*[_type == 'page']{
             _id,
             _createdAt,
             title,
             "slug": slug.current,
         }`
-
-    );  
+  );
 }
 
-export async function getPage(slug:string): Promise<Page[]> {
-    return createClient(clientconfig).fetch(
-        groq `*[_type == "page" && slug.current == $slug][0]{
+export async function getPage(slug: string): Promise<Page> {
+  return createClient(clientconfig).fetch(
+    groq`*[_type == "page" && slug.current == $slug][0]{
             _id,
             _createdAt,
             title,
             "slug": slug.current,
             content
         }`,
-        {slug}
-
-    );
+    { slug }
+  );
 }
